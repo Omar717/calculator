@@ -1,12 +1,15 @@
 * {
     font-size: 50px;
-    background-color: rgb(34, 34, 34);
     color: greenyellow;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(120deg,rgb(159, 123, 251), rgb(132, 83, 255));
 }
 
 #wrapper {
@@ -23,32 +26,54 @@ h1 {
 }
 
 #display {
-    width: 400px;
+    width: 440px;
     display: flex;
     justify-content: center;
     background-color: black;
     border-radius: 10px;
     margin-bottom: 10px;
+    margin-top: 150px;
+    padding: 10px;
 }
 
 #container {
+    background: linear-gradient(60deg,rgb(185, 0, 0), rgb(145, 0, 0));
     display: flex;
-    justify-content: center;
     align-items: center;
+    padding-bottom: 150px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 0.38);
 }
 
 #num-buttons {
     height: 300px;
-    width: 200px;
+    width: 300px;
 }
 
 #operator-buttons {
     height: 300px;
-    width: 200px;
+    width: 100px;
+}
+
+.buttons, .op-buttons {
+    height: 75px;
+    width: 75px;
+    font-size: 50px;
+    margin: 5px;
+    border-radius: 30px;
 }
 
 .buttons {
-    font-size: 50px;
-    margin: 5px;
-    border-radius: 10px;
+    background-color: black;
+}
+
+.op-buttons {
+    background-color: rgb(56, 56, 56);
+}
+
+#clear {
+    font-size: 30px;
 }
