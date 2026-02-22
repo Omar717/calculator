@@ -76,7 +76,14 @@ function evaluate () {
 
     state.numTwo = state.display;
 
-    const result = String(operate());
+    let result = String(operate());
+
+    let resultNum = Number(result);
+
+    if (result.length > 17 || result.includes(".")) {
+        result = String(resultNum.toExponential(4));
+    } 
+
     display.textContent = result;
     state.display = result;
     state.numOne = result;
@@ -123,7 +130,12 @@ numButtons.addEventListener("click", (e) => {
         }
     } else if (target.textContent === "=") {
         evaluate();
-    }
+    } else if (target.textContent === "0") {
+        if (state.numOne !== "") {
+            state.display += target.textContent;
+            display.textContent += "0";
+        }
+    }    
 });
 
 const operateButtons = document.querySelector("#operator-buttons");
