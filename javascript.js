@@ -50,11 +50,16 @@ function getNum (number) {
 
 function getOperator (operator) {
     if (state.operator !== null && !state.displayReset) {
+        state.numTwo = state.display;
         state.numOne = String(operate());
         display.textContent = state.numOne;
     }
     else {
         state.numOne = state.display;
+    }
+    if (state.displayReset) {
+        state.operator = operator;
+        return;
     }
 
     state.operator = operator;
@@ -62,11 +67,19 @@ function getOperator (operator) {
 }
 
 function evaluate () { 
-    result = String(operate());
+    if (state.operator === null) {
+        return;
+    }
+    if(state.displayReset) {
+        return;
+    }
+
+    state.numTwo = state.display;
+
+    const result = String(operate());
     display.textContent = result;
     state.display = result;
-    state.numOne = "";
-    state.numTwo = "";
+    state.numOne = result;
     state.displayReset = true;
     state.operator = null;
 }
@@ -110,9 +123,6 @@ numButtons.addEventListener("click", (e) => {
         }
     } else if (target.textContent === "=") {
         evaluate();
-        if (state.operator !== null) {
-            state.numOne = state.display;
-        }
     }
 });
 
