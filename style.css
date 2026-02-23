@@ -20,11 +20,6 @@ body {
     flex-direction: column;
 }
 
-#display-container {
-    display: flex;
-    justify-content: center;
-}
-
 #display {
     height: 75px;
     width: 440px;
