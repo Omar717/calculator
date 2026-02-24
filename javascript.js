@@ -120,7 +120,7 @@ numButtons.addEventListener("click", (e) => {
     if (!target.matches(".buttons")) {
         return;
     }
-    if (target.textContent !== "=" && target.textContent !== ".") {
+    if (target.textContent !== ".") {
         changeDisplay(target.textContent);
         getNum(target.textContent);
     } else if (target.textContent === ".") {
@@ -128,13 +128,14 @@ numButtons.addEventListener("click", (e) => {
             state.display += target.textContent;
             display.textContent += ".";
         }
-    } else if (target.textContent === "=") {
-        evaluate();
     } else if (target.textContent === "0") {
         if (state.numOne !== "") {
             state.display += target.textContent;
             display.textContent += "0";
         }
+    }
+    if (target.textContent === "AC") {
+        clear();
     }    
 });
 
@@ -145,9 +146,11 @@ operateButtons.addEventListener("click", (e) => {
     if (!target.matches(".op-buttons")) {
         return;
     }
-    if (target.textContent !== "AC") {
-        getOperator(target.textContent)
-    } else if (target.textContent === "AC") {
-        clear();
-    }
+    getOperator(target.textContent)
+});
+
+const equalsButton = document.querySelector("#equals");
+
+equalsButton.addEventListener("click", () => {
+        evaluate();
 });
