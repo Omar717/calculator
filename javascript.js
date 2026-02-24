@@ -70,7 +70,7 @@ function evaluate () {
     if (state.operator === null) {
         return;
     }
-    if(state.displayReset) {
+    if (state.displayReset) {
         return;
     }
 
@@ -80,7 +80,7 @@ function evaluate () {
 
     let resultNum = Number(result);
 
-    if (result.length > 17 || result.includes(".")) {
+    if (result.length > 16 || result.includes(".")) {
         result = String(resultNum.toExponential(4));
     } 
 
@@ -124,7 +124,7 @@ numButtons.addEventListener("click", (e) => {
         changeDisplay(target.textContent);
         getNum(target.textContent);
     } else if (target.textContent === ".") {
-        if (!state.display.includes(".")) {
+        if (!state.display.includes(".") && !state.display.includes("e")) {
             state.display += target.textContent;
             display.textContent += ".";
         }

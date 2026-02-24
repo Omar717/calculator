@@ -21,7 +21,7 @@ body {
 }
 
 #display {
-    min-height: 75px;
+    min-height: 80px;
     width: 440px;
     text-align: right;
     background-color: black;
