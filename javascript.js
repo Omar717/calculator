@@ -101,7 +101,7 @@ function clear () {
 }
 
 function changeDisplay (input) {
-    maxLength = 7;
+    maxLength = 20;
     if (state.display === "" || state.displayReset) {
         state.display = "";
         state.display += input;
