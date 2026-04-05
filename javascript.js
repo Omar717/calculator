@@ -273,8 +273,9 @@ function clear() {
 }
 
 // Event delegation for numbers
-const numButtons = document.querySelector("#num-buttons");
-numButtons.addEventListener("pointerdown", (e) => {
+const numButtons = document.querySelectorAll(".buttons");
+numButtons.forEach(btn => { 
+    btn.addEventListener("pointerdown", (e) => {
     const target = e.target;
     if (!target.matches(".buttons")) return;
 
@@ -289,14 +290,18 @@ numButtons.addEventListener("pointerdown", (e) => {
         getNum(value);
     }
 });
+});
 
 // Event delegation for operators
-const operateButtons = document.querySelector("#operator-buttons");
-operateButtons.addEventListener("pointerdown", (e) => {
+const operateButtons = document.querySelectorAll(".op-buttons");
+
+operateButtons.forEach(btn => {
+btn.addEventListener("pointerdown", (e) => {
     const target = e.target;
     if (!target.matches(".op-buttons")) return;
 
     getOperator(target.textContent);
+});
 });
 
 // Equals button

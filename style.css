@@ -58,16 +58,16 @@ h1 {
 }
 
 #num-buttons {
-    height: 300px;
+    height: 360px;
     width: 300px;
 }
 
 #operator-buttons {
-    height: 300px;
+    height: 360px;
     width: 100px;
 }
 
-.buttons, .op-buttons {
+.buttons, .op-buttons, .eq-button {
     height: 75px;
     width: 75px;
     font-size: 35px;
@@ -87,7 +87,7 @@ h1 {
 #equals-button {
     display: flex;
     width: 400px;
-    margin-top: 65px;
+    margin-top: 10px;
 }
 
 #equals {
