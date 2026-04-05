@@ -1,88 +1,259 @@
+// Old code attempt 
+
+// const display = document.querySelector("#display");
+
+// function add (a, b) {
+//     return a + b;
+// }
+
+// function subtract (a, b) {
+//     return a - b;
+// }
+
+// function multiply (a, b) {
+//     return a*b;
+// }
+
+// function divide (a, b) {
+//     if (b === 0) {
+//         state.displayReset = true;
+//         return "Nice Try!"
+//     } 
+//     return a/b;
+// }
+
+// const state = {numOne: "",
+//     operator: null,
+//     numTwo: "",
+//     display: "",
+//     displayReset: false,
+// };
+
+// function operate () {
+
+//     if (state.operator === "+") {
+//         return add(Number(state.numOne), Number(state.numTwo));
+//     } else if (state.operator === "-") {
+//         return subtract(Number(state.numOne), Number(state.numTwo));
+//     } else if (state.operator === "*") {
+//         return multiply(Number(state.numOne), Number(state.numTwo));
+//     } else if (state.operator === "/") {
+//         return divide(Number(state.numOne), Number(state.numTwo));
+//     }
+// }
+
+// function getNum (number) {
+//     if (state.operator === null) {
+//         state.numOne += number;
+//     } else {
+//         state.numTwo += number;
+//     }
+// }
+
+// function getOperator (operator) {
+//     if (state.operator !== null && !state.displayReset) {
+//         state.numTwo = state.display;
+//         state.numOne = String(operate());
+//         display.textContent = state.numOne;
+//     }
+//     else {
+//         state.numOne = state.display;
+//     }
+//     if (state.displayReset) {
+//         state.operator = operator;
+//         return;
+//     }
+
+//     state.operator = operator;
+//     state.displayReset = true;
+// }
+
+// function evaluate () { 
+//     if (state.operator === null) {
+//         return;
+//     }
+//     if (state.displayReset) {
+//         return;
+//     }
+
+//     state.numTwo = state.display;
+
+//     let result = String(operate());
+
+//     let resultNum = Number(result);
+
+//     if (result.length > 16 || result.includes(".")) {
+//         result = String(resultNum.toExponential(4));
+//     } 
+
+//     display.textContent = result;
+//     state.display = result;
+//     state.numOne = result;
+//     state.displayReset = true;
+//     state.operator = null;
+// }
+
+// function clear () {
+//     display.textContent = "";
+//     state.display = "";
+//     state.numOne = "";
+//     state.operator = null;
+//     state.numTwo = "";
+//     state.displayReset = false;
+// }
+
+// function changeDisplay (input) {
+//     maxLength = 20;
+//     if (state.display === "" || state.displayReset) {
+//         state.display = "";
+//         state.display += input;
+//         display.textContent = input;
+//         state.displayReset = false;
+//     } else if (state.display.length <= maxLength && !state.displayReset) {
+//         state.display += input;
+//         display.textContent += input;
+//     } 
+// }
+
+// const numButtons = document.querySelector("#num-buttons");
+
+// numButtons.addEventListener("pointerdown", (e) => {
+//     let target = e.target;
+//     const value = target.textContent;
+//     if (!target.matches(".buttons")) {
+//         return;
+//     }
+//     if (target.textContent !== "." && state.numOne.charAt(0) !== "0" && !state.display.includes(".")) {
+//         changeDisplay(target.textContent);
+//         getNum(target.textContent);    
+//     } else if (target.textContent === ".") {
+//         if (!state.display.includes(".") && !state.display.includes("e")) {
+//             changeDisplay(target.textContent);
+//             getNum(target.textContent);
+//         }
+//     } else if (state.display.includes(".") && state.numOne.includes(".")) {
+//         changeDisplay(target.textContent);
+//         getNum(target.textContent); 
+//     } 
+//     if (target.textContent === "AC") {
+//         clear();
+//     }    
+// });
+
+// const operateButtons = document.querySelector("#operator-buttons");
+
+// operateButtons.addEventListener("pointerdown", (e) => {
+//     let target = e.target;
+//     if (!target.matches(".op-buttons")) {
+//         return;
+//     }
+//     getOperator(target.textContent);
+// });
+
+// const equalsButton = document.querySelector("#equals");
+
+// equalsButton.addEventListener("pointerdown", () => {
+//         evaluate();
+// });
+
 const display = document.querySelector("#display");
 
-function add (a, b) {
-    return a + b;
-}
-
-function subtract (a, b) {
-    return a - b;
-}
-
-function multiply (a, b) {
-    return a*b;
-}
-
-function divide (a, b) {
+// Basic operations
+function add(a, b) { return a + b; }
+function subtract(a, b) { return a - b; }
+function multiply(a, b) { return a * b; }
+function divide(a, b) {
     if (b === 0) {
         state.displayReset = true;
-        return "Nice Try!"
-    } 
-    return a/b;
+        return "Nice Try!";
+    }
+    return a / b;
 }
 
-const state = {numOne: "",
-    operator: null,
+// Calculator state
+const state = {
+    numOne: "0",
     numTwo: "",
-    display: "",
+    operator: null,
+    display: "0",
     displayReset: false,
 };
 
-function operate () {
-
-    if (state.operator === "+") {
-        return add(Number(state.numOne), Number(state.numTwo));
-    } else if (state.operator === "-") {
-        return subtract(Number(state.numOne), Number(state.numTwo));
-    } else if (state.operator === "*") {
-        return multiply(Number(state.numOne), Number(state.numTwo));
-    } else if (state.operator === "/") {
-        return divide(Number(state.numOne), Number(state.numTwo));
+// Operate function
+function operate() {
+    const a = Number(state.numOne);
+    const b = Number(state.numTwo);
+    switch (state.operator) {
+        case "+": return add(a, b);
+        case "-": return subtract(a, b);
+        case "*": return multiply(a, b);
+        case "/": return divide(a, b);
+        default: return b;
     }
 }
 
-function getNum (number) {
-    if (state.operator === null) {
-        state.numOne += number;
+// Handle number input
+function getNum(number) {
+    // Start a new number after operator or result
+    if (state.displayReset) {
+        if (state.operator === null) {
+            // Starting a fresh numOne (after result)
+            state.numOne = (number === ".") ? "0." : number;
+            state.numTwo = "";
+        } else {
+            // Starting numTwo (after operator)
+            state.numTwo = (number === ".") ? "0." : number;
+        }
+        state.display = (number === ".") ? "0." : number;
+        display.textContent = state.display;
+        state.displayReset = false;
+        return;
+    }
+
+    let target = (state.operator === null) ? "numOne" : "numTwo";
+
+    // Prevent multiple decimals
+    if (number === "." && state[target].includes(".")) return;
+
+    // Prevent multiple leading zeros
+    if (state[target] === "0" && number === "0") return;
+
+    // Replace leading zero
+    if (state[target] === "0" && number !== ".") {
+        state[target] = number;
     } else {
-        state.numTwo += number;
+        state[target] += number;
     }
+
+    state.display = state[target];
+    display.textContent = state.display;
 }
 
-function getOperator (operator) {
+// Handle operator input
+function getOperator(operator) {
     if (state.operator !== null && !state.displayReset) {
         state.numTwo = state.display;
         state.numOne = String(operate());
         display.textContent = state.numOne;
-    }
-    else {
+    } else {
         state.numOne = state.display;
-    }
-    if (state.displayReset) {
-        state.operator = operator;
-        return;
     }
 
     state.operator = operator;
     state.displayReset = true;
 }
 
-function evaluate () { 
-    if (state.operator === null) {
-        return;
-    }
-    if (state.displayReset) {
-        return;
-    }
+// Evaluate result
+function evaluate() {
+    if (!state.operator || state.displayReset) return;
 
     state.numTwo = state.display;
-
     let result = String(operate());
 
-    let resultNum = Number(result);
-
+    const resultNum = Number(result);
     if (result.length > 16 || result.includes(".")) {
-        result = String(resultNum.toExponential(4));
-    } 
+        result = resultNum.toExponential(4);
+    }
 
     display.textContent = result;
     state.display = result;
@@ -91,172 +262,45 @@ function evaluate () {
     state.operator = null;
 }
 
-function clear () {
-    display.textContent = "";
-    state.display = "";
-    state.numOne = "";
-    state.operator = null;
+// Clear calculator
+function clear() {
+    state.numOne = "0";
     state.numTwo = "";
+    state.operator = null;
+    state.display = "0";
     state.displayReset = false;
+    display.textContent = "0";
 }
 
-function changeDisplay (input) {
-    maxLength = 20;
-    if (state.display === "" || state.displayReset) {
-        state.display = "";
-        state.display += input;
-        display.textContent = input;
-        state.displayReset = false;
-    } else if (state.display.length <= maxLength && !state.displayReset) {
-        state.display += input;
-        display.textContent += input;
-    } 
-}
+// Event delegation for numbers
+const numButtons = document.querySelector("#num-buttons");
+numButtons.addEventListener("pointerdown", (e) => {
+    const target = e.target;
+    if (!target.matches(".buttons")) return;
 
-const zero = document.querySelector("#zero");
-const one = document.querySelector("#one");
-const two = document.querySelector("#two");
-const three = document.querySelector("#three");
-const four = document.querySelector("#four");
-const five = document.querySelector("#five");
-const six = document.querySelector("#six");
-const seven = document.querySelector("#seven");
-const eight = document.querySelector("#eight");
-const nine = document.querySelector("#nine");
+    const value = target.textContent;
 
-const decimal = document.querySelector("#decimal");
-const AC = document.querySelector("#clear");
+    if (value === "AC") {
+        clear();
+        return;
+    }
 
-const plus = document.querySelector("#plus");
-const minus = document.querySelector("#minus");
-const multiplication = document.querySelector("#multiply");
-const division = document.querySelector("#divide");
-
-const equals = document.querySelector("#equals");
-
-zero.addEventListener("click", () => {
-    if (state.numOne !== "") {
-            state.display += "0";
-            display.textContent += "0";
-        }
+    if (!isNaN(value) || value === ".") {
+        getNum(value);
+    }
 });
 
-one.addEventListener("click", () => {
-    changeDisplay("1");
-        getNum("1");
+// Event delegation for operators
+const operateButtons = document.querySelector("#operator-buttons");
+operateButtons.addEventListener("pointerdown", (e) => {
+    const target = e.target;
+    if (!target.matches(".op-buttons")) return;
+
+    getOperator(target.textContent);
 });
 
-two.addEventListener("click", () => {
-    changeDisplay("2");
-        getNum("2");
-});
-
-three.addEventListener("click", () => {
-    changeDisplay("3");
-        getNum("3");
-});
-
-four.addEventListener("click", () => {
-    changeDisplay("4");
-        getNum("4");
-});
-
-five.addEventListener("click", () => {
-    changeDisplay("5");
-        getNum("5");
-});
-
-six.addEventListener("click", () => {
-    changeDisplay("6");
-        getNum("6");
-});
-
-seven.addEventListener("click", () => {
-    changeDisplay("7");
-        getNum("7");
-});
-
-eight.addEventListener("click", () => {
-    changeDisplay("8");
-        getNum("8");
-});
-
-nine.addEventListener("click", () => {
-    changeDisplay("9");
-        getNum("9");
-});
-
-decimal.addEventListener("click", () => {
-    if (!state.display.includes(".") && !state.display.includes("e")) {
-            state.display += ".";
-            display.textContent += ".";
-        }
-});
-
-AC.addEventListener("click", () => {
-    clear();
-});
-
-plus.addEventListener("click", () => {
-    getOperator("+");
-});
-
-minus.addEventListener("click", () => {
-    getOperator("-");
-});
-
-multiplication.addEventListener("click", () => {
-    getOperator("*");
-});
-
-division.addEventListener("click", () => {
-    getOperator("/");
-});
-
-equals.addEventListener("click", () => {
+// Equals button
+const equalsButton = document.querySelector("#equals");
+equalsButton.addEventListener("pointerdown", () => {
     evaluate();
-})
-
-// Event Delegation Attempt:
-
-// const numButtons = document.querySelector("#num-buttons");
-
-// numButtons.addEventListener("click", (e) => {
-//     let target = e.target;
-//     if (!target.matches(".buttons")) {
-//         return;
-//     }
-//     if (target.textContent !== ".") {
-//         changeDisplay(target.textContent);
-//         getNum(target.textContent);
-//     } else if (target.textContent === ".") {
-//         if (!state.display.includes(".") && !state.display.includes("e")) {
-//             state.display += target.textContent;
-//             display.textContent += ".";
-//         }
-//     } else if (target.textContent === "0") {
-//         if (state.numOne !== "") {
-//             state.display += target.textContent;
-//             display.textContent += "0";
-//         }
-//     }
-//     if (target.textContent === "AC") {
-//         clear();
-//     }    
-// });
-
-// const operateButtons = document.querySelector("#operator-buttons");
-
-// operateButtons.addEventListener("click", (e) => {
-//     let target = e.target;
-//     if (!target.matches(".op-buttons")) {
-//         return;
-//     }
-//     getOperator(target.textContent)
-// });
-
-// const equalsButton = document.querySelector("#equals");
-
-// equalsButton.addEventListener("click", () => {
-//         evaluate();
-// });
+});
