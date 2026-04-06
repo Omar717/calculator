@@ -194,14 +194,11 @@ function operate() {
 
 // Handle number input
 function getNum(number) {
-    // Start a new number after operator or result
     if (state.displayReset) {
         if (state.operator === null) {
-            // Starting a fresh numOne (after result)
             state.numOne = (number === ".") ? "0." : number;
             state.numTwo = "";
         } else {
-            // Starting numTwo (after operator)
             state.numTwo = (number === ".") ? "0." : number;
         }
         state.display = (number === ".") ? "0." : number;
@@ -218,8 +215,8 @@ function getNum(number) {
     // Prevent multiple leading zeros
     if (state[target] === "0" && number === "0") return;
 
-    // Replace leading zero
-    if (state[target] === "0" && number !== ".") {
+    // Allow replacing "-"
+    if ((state[target] === "0" || state[target] === "-") && number !== ".") {
         state[target] = number;
     } else {
         state[target] += number;
@@ -231,6 +228,26 @@ function getNum(number) {
 
 // Handle operator input
 function getOperator(operator) {
+    // Handle negative numbers (unary minus)
+    if (operator === "-") {
+        // Case 1: starting first number as negative
+        if (state.operator === null && state.display === "0") {
+            state.numOne = "-";
+            state.display = "-";
+            display.textContent = "-";
+            return;
+        }
+
+        // Case 2: starting second number as negative
+        if (state.operator !== null && state.displayReset) {
+            state.numTwo = "-";
+            state.display = "-";
+            display.textContent = "-";
+            state.displayReset = false;
+            return;
+        }
+    }
+
     if (state.operator !== null && !state.displayReset) {
         state.numTwo = state.display;
         state.numOne = String(operate());
@@ -276,32 +293,32 @@ function clear() {
 const numButtons = document.querySelectorAll(".buttons");
 numButtons.forEach(btn => { 
     btn.addEventListener("pointerdown", (e) => {
-    const target = e.target;
-    if (!target.matches(".buttons")) return;
+        const target = e.target;
+        if (!target.matches(".buttons")) return;
 
-    const value = target.textContent;
+        const value = target.textContent;
 
-    if (value === "AC") {
-        clear();
-        return;
-    }
+        if (value === "AC") {
+            clear();
+            return;
+        }
 
-    if (!isNaN(value) || value === ".") {
-        getNum(value);
-    }
-});
+        if (!isNaN(value) || value === ".") {
+            getNum(value);
+        }
+    });
 });
 
 // Event delegation for operators
 const operateButtons = document.querySelectorAll(".op-buttons");
 
 operateButtons.forEach(btn => {
-btn.addEventListener("pointerdown", (e) => {
-    const target = e.target;
-    if (!target.matches(".op-buttons")) return;
+    btn.addEventListener("pointerdown", (e) => {
+        const target = e.target;
+        if (!target.matches(".op-buttons")) return;
 
-    getOperator(target.textContent);
-});
+        getOperator(target.textContent);
+    });
 });
 
 // Equals button
