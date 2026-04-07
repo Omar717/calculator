@@ -272,6 +272,7 @@ function getOperator(operator) {
     }
 
     state.operator = operator;
+    display.textContent = state.operator;
     state.displayReset = true;
 }
 
