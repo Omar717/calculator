@@ -94,3 +94,8 @@ h1 {
     flex: auto;
     background-color: rgb(3, 61, 2);
 }
+
+.buttons:hover, .op-buttons:hover, #equals:hover {
+    background-color: rgb(73, 73, 16);
+    font-size: 45px;
+}
