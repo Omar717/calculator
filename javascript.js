@@ -207,6 +207,21 @@ function getNum(number) {
         return;
     }
 
+    // Handle negative decimals
+    if (number === "." && state.numOne.charAt(0) === "-" && state.numTwo === "") {
+        state.display = "-0.";
+        state.numOne = "-0."
+        display.textContent = "-0.";
+        return;
+    }
+
+    if (number === "." && state.numTwo.charAt(0) === "-") {
+        state.display = "-0.";
+        state.numTwo = "-0.";
+        display.textContent = "-0.";
+        return;
+    }
+
     let target = (state.operator === null) ? "numOne" : "numTwo";
 
     // Prevent multiple decimals
@@ -216,7 +231,7 @@ function getNum(number) {
     if (state[target] === "0" && number === "0") return;
 
     // Allow replacing "-"
-    if ((state[target] === "0" || state[target] === "-") && number !== ".") {
+    if (state[target] === "0" && number !== ".") {
         state[target] = number;
     } else {
         state[target] += number;
