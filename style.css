@@ -95,7 +95,7 @@ h1 {
     background-color: rgb(3, 61, 2);
 }
 
-.buttons:hover, .op-buttons:hover, #equals:hover {
+.buttons:active, .op-buttons:active, #equals:active {
     background-color: rgb(73, 73, 16);
     font-size: 45px;
 }
